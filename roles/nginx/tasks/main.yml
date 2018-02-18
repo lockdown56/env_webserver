@@ -1,0 +1,7 @@
+---
+# 本地 nginx 压缩包上传到服务器并解压, 
+# 需要目标服务器有 gtar/unzip 命令
+- name: extract nginx.tar.gz into /usr/local/src
+  unarchive:
+    src: ../files/nginx-1.12.2.tar.gz
+    dest: /usr/local/src
