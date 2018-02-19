@@ -3,6 +3,12 @@
   hosts: webservers
   become: yes
   become_method: sudo
+  gather_facts: no
+  pre_tasks:
+    - name: apt update
+      raw: apt -y update
+    - name: install python2
+      raw: sudo test -e /usr/bin/python || sudo apt install -y python-minimal
   roles: 
     - dependence
     - nginx
