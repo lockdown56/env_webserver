@@ -22,6 +22,27 @@
   command: /home/ubuntu/.ansible/tmp/scripts/add_nginx_user.sh
 
 # 编译 nginx
-# - name: compile nginx
-#  shell: 
+- name: clean makefile
+  command: make clean
+  args:
+    chdir: /usr/local/src/nginx-1.12.2
+- name: execute configure
+  command: >
+    ./configure
+    --prefix=/usr/local/nginx
+    --pid-path=/usr/local/nginx/run/nginx.pid
+    --with-http_ssl_module
+    --with-pcre
+    --user=nginx
+    --group=nginx
+  args:
+    chdir: /usr/local/src/nginx-1.12.2
+- name: execute make
+  command: make
+  args:
+    chdir: /usr/local/src/nginx-1.12.2
+- name: execute make install
+  command: make install
+  args:
+    chdir: /usr/local/src/nginx-1.12.2
 
