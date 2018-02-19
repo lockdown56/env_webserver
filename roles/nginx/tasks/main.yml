@@ -12,10 +12,12 @@
 # 不知道为什么 script 模块没法用, 以后再看
 - name: create group and user if not exist
   copy: 
-    src: /home/ubuntu/app/server-env/script/add_nginx_user.sh
+    src: /home/ubuntu/app/server-env/scripts/add_nginx_user.sh
     dest: /home/ubuntu/.ansible/tmp/scripts/
 - name: change the mode of nginx script
-  command: chmod -R 700 /home/ubuntu/.ansible/tmp/scripts/add_nginx_user.sh
+  file: 
+    path: /home/ubuntu/.ansible/tmp/scripts/add_nginx_user.sh
+    mode: 0700
 - name: run the script to create nginx user
   command: /home/ubuntu/.ansible/tmp/scripts/add_nginx_user.sh
 
