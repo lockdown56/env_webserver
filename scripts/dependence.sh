@@ -18,7 +18,9 @@ libs_arr+=(build-essential)
 libs_arr+=(gcc gcc-c++ libtool automake make cmake autoconf)
 libs_arr+=(zlib1g zlib1g.dev openssl libssl-dev)
 libs_arr+=(libpcre3 libpcre3-dev)
+libs_arr+=(sysv-rc-conf)
 
+sudo apt-get update
 # 遍历安装依赖
 for lib in ${libs_arr[@]}
 do
