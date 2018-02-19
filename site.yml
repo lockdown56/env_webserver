@@ -1,6 +1,7 @@
 ---
 - name: install server
   hosts: webservers
-  sudo: yes
+  become: yes
+  become_method: sudo
   roles: 
     - nginx
