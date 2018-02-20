@@ -20,10 +20,10 @@
   command: /home/ubuntu/.ansible/tmp/scripts/add_nginx_user.sh
 
 # 编译 nginx
-- name: clean makefile
-  command: make clean
-  args:
-    chdir: /usr/local/src/nginx-1.12.2
+# - name: clean makefile
+#   command: make clean
+#   args:
+#     chdir: /usr/local/src/nginx-1.12.2
 - name: execute configure
   command: >
     ./configure

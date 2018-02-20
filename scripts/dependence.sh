@@ -14,7 +14,6 @@ checkAndInstall(){
 # 定义依赖库数组, for ubuntu
 # libs_arr="gcc gcc-c++ automake libtool make cmake zlib1g zlib.dev"
 libs_arr=()
-libs_arr+=(python)
 libs_arr+=(build-essential)
 libs_arr+=(gcc gcc-c++ libtool automake make cmake autoconf)
 libs_arr+=(zlib1g zlib1g.dev openssl libssl-dev)
