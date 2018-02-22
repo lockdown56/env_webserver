@@ -7,7 +7,7 @@
   pre_tasks:
     - name: apt update
       raw: apt -y update
-    - name: install python2
+    - name: install python
       raw: sudo test -e /usr/bin/python || sudo apt install -y python-minimal
   roles: 
     - dependence
