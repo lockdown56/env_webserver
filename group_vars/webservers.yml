@@ -1,0 +1,6 @@
+---
+local_dir: /home/vagrant/app/server-env/
+dest_dir: /home/vagrant/
+
+install_src_dir: /usr/local/src/
+install_dir: /usr/local/

@@ -1,23 +1,23 @@
 ---
 # 本地 nginx 压缩包上传到服务器并解压, 
 # 需要目标服务器有 gtar/unzip 命令
-- name: extract nginx.tar.gz into /usr/local/src
+- name: "extract nginx.tar.gz into {{ install_src_dir }}"
   unarchive:
-    src: ../files/nginx-1.12.2.tar.gz
-    dest: /usr/local/src
+    src: "{{ dest_dir }}roles/nginx/files/nginx-1.12.2.tar.gz"
+    dest: "{{ install_src_dir }}"
 
 # 创建用户组和用户
 # 不知道为什么 script 模块没法用, 以后再看
 - name: create group and user if not exist
   copy: 
-    src: /home/ubuntu/app/server-env/scripts/add_nginx_user.sh
-    dest: /home/ubuntu/.ansible/tmp/scripts/
+    src: "{{ local_dir }}scripts/add_nginx_user.sh"
+    dest: "{{ dest_dir }}.ansible/tmp/scripts/"
 - name: change the mode of nginx script
   file: 
-    path: /home/ubuntu/.ansible/tmp/scripts/add_nginx_user.sh
+    path: "{{ dest_dir }}.ansible/tmp/scripts/add_nginx_user.sh"
     mode: 0700
 - name: run the script to create nginx user
-  command: /home/ubuntu/.ansible/tmp/scripts/add_nginx_user.sh
+  command: "{{ dest_dir }}.ansible/tmp/scripts/add_nginx_user.sh"
 
 # 编译 nginx
 # - name: clean makefile
@@ -27,27 +27,27 @@
 - name: execute configure
   command: >
     ./configure
-    --prefix=/usr/local/nginx
-    --pid-path=/usr/local/nginx/run/nginx.pid
+    --prefix={{ install_dir }}nginx
+    --pid-path={{ install_dir }}nginx/run/nginx.pid
     --with-http_ssl_module
     --with-pcre
     --user=nginx
     --group=nginx
   args:
-    chdir: /usr/local/src/nginx-1.12.2
+    chdir: "{{ install_src_dir }}nginx-1.12.2"
 - name: execute make
   command: make
   args:
-    chdir: /usr/local/src/nginx-1.12.2
+    chdir: "{{ install_src_dir }}nginx-1.12.2"
 - name: execute make install
   command: make install
   args:
-    chdir: /usr/local/src/nginx-1.12.2
+    chdir: "{{ install_src_dir }}nginx-1.12.2"
 
 # nginx 加入进程管理, for ubuntu
 - name: copy nginx script to init.d
   copy: 
-    src: ../scripts/nginx
+    src: "{{ dest_dir }}roles/nginx/scripts/scripts/nginx"
     dest: /etc/init.d
 - name: add execute perm
   file:
