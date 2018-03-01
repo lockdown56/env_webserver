@@ -1,16 +1,28 @@
 ---
   # 安装依赖
 
+  # 替换 apt 源
+  - name: backup apt source list
+    raw: sudo cp /etc/apt/sources.list /etc/apt/sources.list.backup
+
+  - name: copy apt source list to dest
+    copy: 
+      src: "{{ project_path }}files/apt/sources.list"
+      dest: /etc/apt/sources.list
+
+  - name: apt update
+    shell: apt -y update
+
   # 拷贝脚本到目标机器
   - name: copy dependence script to dest machine
     copy: 
-      src: "{{ local_dir }}scripts/dependence.sh"
-      dest: "{{ dest_dir }}.ansible/tmp/scripts/"
+      src: "{{ project_path }}scripts/dependence.sh"
+      dest: "{{ dest_path }}.ansible/tmp/scripts/"
 
   - name: change mode
     file: 
-      path: "{{ dest_dir }}.ansible/tmp/scripts/dependence.sh"
+      path: "{{ dest_path }}.ansible/tmp/scripts/dependence.sh"
       mode: 0700
 
   - name: execute dependence script
-    command: "{{ dest_dir }}.ansible/tmp/scripts/dependence.sh"
+    command: "{{ dest_path }}.ansible/tmp/scripts/dependence.sh"
