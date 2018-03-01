@@ -58,6 +58,30 @@
 - name: config start nginx when boot machine
   command: sysv-rc-conf nginx on
 
+# 创建配置文件路径
+- name: modify config
+  shell: "test -d {{ install_path }}nginx/conf/conf.d || mkdir {{ install_path }}nginx/conf/conf.d"
+
+# 复制主配置文件
+- name: copy nginx.conf
+  copy:
+    src: "{{ project_path }}roles/nginx/files/conf/nginx.conf"
+    dest: "{{ install_path }}nginx/conf"
+
+# 复制默认服务配置文件
+- name: copy default server
+  copy:
+    src: "{{ project_path }}roles/nginx/files/conf/default.conf"
+    dest: "{{ install_path }}nginx/conf/conf.d"
+
 # 启动 nginx
 - name: start nginx
   command: /etc/init.d/nginx start
+
+# 创建服务器目录
+- name: create server direct
+  shell: test -d /home/www || mkdir /home/www
+- name: create test file
+  copy: 
+    src: "{{ project_path }}roles/nginx/files/index.html"
+    dest: /home/www
