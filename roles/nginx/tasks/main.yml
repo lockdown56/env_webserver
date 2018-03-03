@@ -49,6 +49,7 @@
   copy: 
     src: "{{ project_path }}roles/nginx/scripts/nginx"
     dest: /etc/init.d
+
 - name: add execute perm
   file:
     path: /etc/init.d/nginx
@@ -83,5 +84,5 @@
   shell: test -d /home/www || mkdir /home/www
 - name: create test file
   copy: 
-    src: "{{ project_path }}roles/nginx/files/index.html"
+    src: "{{ project_path }}roles/nginx/files/index.php"
     dest: /home/www

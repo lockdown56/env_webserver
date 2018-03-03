@@ -57,3 +57,23 @@
   command: make install
   args:
     chdir: "{{ install_src_path }}php-5.6.34"
+
+- name: copy php.ini
+  command: "cp {{ install_src_path }}php-5.6.34/php.ini-production {{ install_path }}php5.6/etc/php.ini"
+
+- name: php-fpm config
+  command: "cp {{ install_path }}php5.6/etc/php-fpm.conf.default {{ install_path }}php5.6/etc/php-fpm.conf"
+
+- name: copy php-fpm script into init.d
+  command: "cp {{install_src_path}}php-5.6.34/sapi/fpm/init.d.php-fpm /etc/init.d/php-fpm"
+
+- name: change php-fpm's permission
+  file: 
+    path: /etc/init.d/php-fpm
+    mode: 0755
+
+- name: config start php when boot machine
+  command: sysv-rc-conf php-fpm on
+
+- name: start php
+  command: /etc/init.d/php-fpm start
