@@ -22,6 +22,9 @@ libs_arr+=(sysv-rc-conf)
 libs_arr+=(libxml2 libxml2-dev php5-openssl libcurl4-openssl-dev pkg-config)
 libs_arr+=(libjpeg-dev libpng12-dev libfreetype6-dev libmcrypt-dev libmcrypt4)
 
+# on centos is ncurses-devel
+libs_arr+=(libncurses5-dev gnutls-bin)
+
 # 遍历安装依赖
 for lib in ${libs_arr[@]}
 do

@@ -27,6 +27,8 @@
   - name: execute dependence script
     command: "{{ dest_path }}.ansible/tmp/scripts/dependence.sh"
 
+  # bison 使用安装工具没法安装合适版本, 所以编译安装
+  # @todo 这里需要分离出来
   - name: bison
     unarchive:
       src: "{{ project_path }}files/bison-2.7.tar.xz"

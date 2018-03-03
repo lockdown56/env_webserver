@@ -52,6 +52,7 @@
   command: make
   args:
     chdir: "{{ install_src_path }}php-5.6.34"
+
 - name: execute make install
   command: make install
   args:
