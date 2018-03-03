@@ -26,3 +26,23 @@
 
   - name: execute dependence script
     command: "{{ dest_path }}.ansible/tmp/scripts/dependence.sh"
+
+  - name: bison
+    unarchive:
+      src: "{{ project_path }}files/bison-2.7.tar.xz"
+      dest: "{{ install_src_path }}"
+
+  - name: execute bison's configure
+    command: ./configure --prefix=/usr/local/
+    args:
+      chdir: "{{ install_src_path }}bison-2.7"
+
+  - name: make bison
+    command: make
+    args:
+      chdir: "{{ install_src_path }}bison-2.7"
+
+  - name: make install
+    command: make install
+    args:
+      chdir: "{{ install_src_path }}bison-2.7"

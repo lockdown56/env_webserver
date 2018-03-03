@@ -1,0 +1,58 @@
+---
+# 安装 php
+
+# 需要目标服务器有 gtar/unzip 命令 
+- name: "extract php-5.6 "
+  unarchive:
+    src: "{{ project_path }}roles/php/files/php-5.6.34.tar.bz2"
+    dest: "{{ install_src_path }}"
+
+# 编译 php 5.6
+- name: execute configure
+  command: >
+    ./configure 
+    --prefix={{ install_path }}php5.6
+    --with-config-file-path={{ install_path }}php5.6/etc
+    --with-config-file-scan-dir={{ install_path }}php5.6/etc/php.d 
+    --with-mcrypt=/usr/include
+    --enable-mysqlnd
+    --with-mysqli
+    --with-pdo-mysql
+    --enable-fpm
+    --with-fpm-user=nginx
+    --with-fpm-group=nginx
+    --with-gd
+    --with-iconv
+    --with-zlib
+    --enable-xml
+    --enable-shmop
+    --enable-sysvsem
+    --enable-inline-optimization
+    --enable-mbregex
+    --enable-mbstring
+    --enable-ftp
+    --enable-gd-native-ttf
+    --with-openssl
+    --enable-pcntl
+    --enable-sockets
+    --with-xmlrpc
+    --enable-zip
+    --enable-soap
+    --without-pear
+    --with-gettext
+    --enable-session
+    --with-curl
+    --with-jpeg-dir
+    --with-freetype-dir
+    --enable-opcache
+  args:
+    chdir: "{{ install_src_path }}php-5.6.34"
+
+- name: execute make
+  command: make
+  args:
+    chdir: "{{ install_src_path }}php-5.6.34"
+- name: execute make install
+  command: make install
+  args:
+    chdir: "{{ install_src_path }}php-5.6.34"
